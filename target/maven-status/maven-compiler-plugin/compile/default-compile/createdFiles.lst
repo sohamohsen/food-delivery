@@ -1,0 +1,11 @@
+com\soha\food\foodiesapi\controller\FoodController.class
+com\soha\food\foodiesapi\FoodieApplication.class
+com\soha\food\foodiesapi\config\AWSConfiguration.class
+com\soha\food\foodiesapi\request\FoodResponse$FoodResponseBuilder.class
+com\soha\food\foodiesapi\service\FoodService.class
+com\soha\food\foodiesapi\entity\FoodEntity$FoodEntityBuilder.class
+com\soha\food\foodiesapi\request\FoodRequest.class
+com\soha\food\foodiesapi\service\FoodServiceImpl.class
+com\soha\food\foodiesapi\request\FoodResponse.class
+com\soha\food\foodiesapi\entity\FoodEntity.class
+com\soha\food\foodiesapi\repository\FoodRepository.class
