@@ -217,9 +217,6 @@ public class UserProfileServiceImpl implements UserProfileService {
         }
     }
 
-    // ================= PROFILE =================
-
-
     // ================= PROFILE PICTURE =================
 
     @Override

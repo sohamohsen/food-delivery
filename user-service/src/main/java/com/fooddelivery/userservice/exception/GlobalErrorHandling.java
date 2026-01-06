@@ -49,4 +49,15 @@ public class GlobalErrorHandling {
                 .build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<ApiResponse> handleAuthorization(AuthorizationException ex) {
+        ApiResponse error = ApiResponse.builder()
+                .status(HttpStatus.FORBIDDEN.value())
+                .message("Forbidden: You don't have permission to access this resource")
+                .timeStamp(LocalDateTime.now())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+    }
+
 }

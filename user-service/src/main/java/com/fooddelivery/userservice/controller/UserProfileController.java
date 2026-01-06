@@ -73,39 +73,68 @@ public class UserProfileController {
     }
 
     @GetMapping("/address")
-    public UserProfileAddressResponse getAddress(
-            @AuthenticationPrincipal Long userId
+    public ResponseEntity<ApiResponse<UserProfileAddressResponse>> getAddress(
+            @AuthenticationPrincipal AuthenticatedUser user
     ) {
-        return userProfileService.getUserAddress(userId);
+        ApiResponse<UserProfileAddressResponse> response = ApiResponse.<UserProfileAddressResponse>builder()
+                .status(HttpStatus.OK.value())
+                .message("Address data get successfully")
+                .data(userProfileService.getUserAddress(user.getUserId()))
+                .timeStamp(LocalDateTime.now())
+                .build();
+
+        return ResponseEntity.ok(response);
     }
 
     // ================= LOCATION =================
 
     @PutMapping("/location")
     @RolesAllowed("RESTAURANT")
-    public void updateLocation(
-            @AuthenticationPrincipal Long userId,
+    public ResponseEntity<ApiResponse<Void>> updateLocation(
+            @AuthenticationPrincipal AuthenticatedUser user,
             @Valid @RequestBody UserProfileUpdateLocationRequest request
     ) {
-        userProfileService.updateLocation(request, userId);
+        userProfileService.updateLocation(request, user.getUserId());
+        ApiResponse<Void> response = ApiResponse.<Void>builder()
+                .status(HttpStatus.OK.value())
+                .message("Address updated successfully")
+                .timeStamp(LocalDateTime.now())
+                .build();
+
+        return ResponseEntity.ok(response);
     }
 
     // ================= PROFILE IMAGE =================
 
-    @PostMapping("/image")
-    public void updateProfileImage(
-            @AuthenticationPrincipal Long userId,
+    @PutMapping("/image")
+    public ResponseEntity<ApiResponse<Void>> updateProfileImage(
+            @AuthenticationPrincipal AuthenticatedUser user,
             @RequestParam("image") MultipartFile image
     ) {
         UserProfileImageRequest request = new UserProfileImageRequest();
         request.setImage(image);
-        userProfileService.updateProfileImage(request, userId);
+        userProfileService.updateProfileImage(request, user.getUserId());
+        ApiResponse<Void> response = ApiResponse.<Void>builder()
+                .status(HttpStatus.OK.value())
+                .message("Image updated successfully")
+                .timeStamp(LocalDateTime.now())
+                .build();
+
+        return ResponseEntity.ok(response);
+
     }
 
     @GetMapping("/image")
-    public UserProfilePictureResponse getProfileImage(
-            @AuthenticationPrincipal Long userId
+    public ResponseEntity<ApiResponse<UserProfilePictureResponse>>  getProfileImage(
+            @AuthenticationPrincipal AuthenticatedUser user
     ) {
-        return userProfileService.getProfilePicture(userId);
+        UserProfilePictureResponse userProfilePictureResponse = userProfileService.getProfilePicture(user.getUserId());
+        ApiResponse<UserProfilePictureResponse> response = ApiResponse.<UserProfilePictureResponse>builder()
+                .status(HttpStatus.OK.value())
+                .message("Address data get successfully")
+                .data(userProfilePictureResponse)
+                .timeStamp(LocalDateTime.now())
+                .build();
+        return ResponseEntity.ok(response);
     }
 }
